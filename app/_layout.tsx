@@ -9,6 +9,12 @@ export default function RootLayout() {
           title: "Create Pet Profile",
         }}
       />
+      <Stack.Screen
+        name="pet/[petId]"
+        options={{
+          title: "Pet Details",
+        }}
+      />
     </Stack>
   );
 }

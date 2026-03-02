@@ -5,5 +5,6 @@ export interface Pet {
   name: string;
   type: PetTypeId;
   emoji: string;
+  age: string;
   brief: string;
 }
