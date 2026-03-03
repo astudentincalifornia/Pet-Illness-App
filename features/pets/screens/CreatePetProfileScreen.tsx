@@ -1,5 +1,5 @@
-import { useMemo, useState } from "react";
 import { router } from "expo-router";
+import { useMemo, useState } from "react";
 import { FlatList, Pressable, Text, View } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 
@@ -19,6 +19,7 @@ export function CreatePetProfileScreen() {
   const [petName, setPetName] = useState("");
   const [petAge, setPetAge] = useState("");
   const [petBrief, setPetBrief] = useState("");
+  const [emergencyVetPhone, setEmergencyVetPhone] = useState("");
 
   const isEmpty = pets.length === 0;
 
@@ -33,6 +34,7 @@ export function CreatePetProfileScreen() {
     setPetName("");
     setPetAge("");
     setPetBrief("");
+    setEmergencyVetPhone("");
     setModalVisible(true);
   };
 
@@ -41,7 +43,12 @@ export function CreatePetProfileScreen() {
   };
 
   const confirmAddPet = () => {
-    if (!selectedType || petName.trim() === "" || petBrief.trim() === "") {
+    if (
+      !selectedType ||
+      petName.trim() === "" ||
+      petBrief.trim() === "" ||
+      emergencyVetPhone.trim() === ""
+    ) {
       return;
     }
 
@@ -57,6 +64,7 @@ export function CreatePetProfileScreen() {
       type: selectedType,
       emoji: typeInfo.emoji,
       brief: petBrief.trim(),
+      emergencyVetPhone: emergencyVetPhone.trim(),
     };
 
     setPets((currentPets) => [...currentPets, newPet]);
@@ -73,6 +81,7 @@ export function CreatePetProfileScreen() {
         emoji: pet.emoji,
         brief: pet.brief,
         age: pet.age,
+        emergencyVetPhone: pet.emergencyVetPhone,
       },
     });
   };
@@ -113,10 +122,12 @@ export function CreatePetProfileScreen() {
         petName={petName}
         petBrief={petBrief}
         petAge={petAge}
+        emergencyVetPhone={emergencyVetPhone}
         selectedType={selectedType}
         onChangePetName={setPetName}
         onChangePetAge={setPetAge}
         onChangePetBrief={setPetBrief}
+        onChangeEmergencyVetPhone={setEmergencyVetPhone}
         onSelectType={setSelectedType}
         onClose={closeModal}
         onConfirm={confirmAddPet}

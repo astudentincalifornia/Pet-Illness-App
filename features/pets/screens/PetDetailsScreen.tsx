@@ -1,20 +1,20 @@
-import { useMemo, useState } from "react";
-import { useLocalSearchParams } from "expo-router";
 import { Image } from "expo-image";
+import { useLocalSearchParams } from "expo-router";
+import { useMemo, useState } from "react";
 import {
-  Alert,
-  Linking,
-  Pressable,
-  ScrollView,
-  Text,
-  View,
+    Alert,
+    Linking,
+    Pressable,
+    ScrollView,
+    Text,
+    View,
 } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 
 import { PET_DETAIL_CONTENT } from "@/features/pets/constants/petDetailContent";
 import {
-  getPetTypeById,
-  type PetTypeId,
+    getPetTypeById,
+    type PetTypeId,
 } from "@/features/pets/constants/petTypes";
 import { styles } from "@/features/pets/screens/PetDetailsScreen.styles";
 
@@ -26,6 +26,7 @@ export function PetDetailsScreen() {
     emoji?: string;
     brief?: string;
     age?: string;
+    emergencyVetPhone?: string;
   }>();
 
   const petType = (params.type ?? "") as PetTypeId;
@@ -41,6 +42,7 @@ export function PetDetailsScreen() {
   const displayBrief = params.brief ?? "";
   const displayAge = params.age?.trim() ? `${params.age} years old` : "Age not set";
   const displayType = petTypeInfo?.label ?? "Unknown type";
+  const displayEmergencyVetPhone = params.emergencyVetPhone ?? "";
 
   const symptoms = useMemo(() => {
     if (!detailContent) {
@@ -58,7 +60,10 @@ export function PetDetailsScreen() {
   };
 
   const openDialPad = async () => {
-    const dialUrl = "tel:";
+    const normalizedNumber = displayEmergencyVetPhone
+      .replace(/[^0-9+]/g, "")
+      .trim();
+    const dialUrl = normalizedNumber ? `tel:${normalizedNumber}` : "tel:";
     const canOpenDialPad = await Linking.canOpenURL(dialUrl);
 
     if (!canOpenDialPad) {
@@ -121,6 +126,9 @@ export function PetDetailsScreen() {
           <Pressable style={styles.emergencyButton} onPress={openDialPad}>
             <Text style={styles.emergencyButtonText}>Call emergency vet</Text>
           </Pressable>
+          {displayEmergencyVetPhone ? (
+            <Text style={styles.emergencyHint}>Number: {displayEmergencyVetPhone}</Text>
+          ) : null}
           <Text style={styles.emergencyHint}>
             This opens your dial pad so you can quickly call your local clinic.
           </Text>

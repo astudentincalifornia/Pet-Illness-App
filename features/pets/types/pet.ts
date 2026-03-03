@@ -7,4 +7,5 @@ export interface Pet {
   emoji: string;
   age: string;
   brief: string;
+  emergencyVetPhone: string;
 }

@@ -20,10 +20,12 @@ interface AddPetModalProps {
   petName: string;
   petAge: string;
   petBrief: string;
+  emergencyVetPhone: string;
   selectedType: PetTypeId | null;
   onChangePetName: (name: string) => void;
   onChangePetAge: (age: string) => void;
   onChangePetBrief: (brief: string) => void;
+  onChangeEmergencyVetPhone: (phone: string) => void;
   onSelectType: (type: PetTypeId) => void;
   onClose: () => void;
   onConfirm: () => void;
@@ -34,17 +36,23 @@ export function AddPetModal({
   petName,
   petAge,
   petBrief,
+  emergencyVetPhone,
   selectedType,
   onChangePetName,
   onChangePetAge,
   onChangePetBrief,
+  onChangeEmergencyVetPhone,
   onSelectType,
   onClose,
   onConfirm,
 }: AddPetModalProps) {
   const { height: windowHeight } = useWindowDimensions();
   const isConfirmDisabled =
-    !selectedType || petName.trim() === "" || petAge.trim() === "" || petBrief.trim() === "";
+    !selectedType ||
+    petName.trim() === "" ||
+    petAge.trim() === "" ||
+    petBrief.trim() === "" ||
+    emergencyVetPhone.trim() === "";
 
   const parsedAge = Number.parseInt(petAge, 10);
   const ageValue = Number.isNaN(parsedAge) ? 0 : parsedAge;
@@ -53,6 +61,11 @@ export function AddPetModal({
   const handleAgeChange = (value: string) => {
     const numericOnly = value.replace(/[^0-9]/g, "");
     onChangePetAge(numericOnly);
+  };
+
+  const handleEmergencyPhoneChange = (value: string) => {
+    const numericOnly = value.replace(/[^0-9+]/g, "");
+    onChangeEmergencyVetPhone(numericOnly);
   };
 
   const incrementAge = () => {
@@ -177,7 +190,7 @@ export function AddPetModal({
 
             <TextInput
               style={styles.input}
-              placeholder="What's your cutie's name"
+              placeholder="What's your your pet's name?"
               placeholderTextColor="#999"
               value={petName}
               onChangeText={onChangePetName}
@@ -212,7 +225,7 @@ export function AddPetModal({
 
             <TextInput
               style={[styles.input, styles.briefInput]}
-              placeholder="Brief description of that cutie (e.g. personality, habits, etc.)"
+              placeholder="Brief description of your pet (e.g. personality, habits, etc.)"
               placeholderTextColor="#999"
               value={petBrief}
               onChangeText={onChangePetBrief}
@@ -222,6 +235,17 @@ export function AddPetModal({
               textAlignVertical="top"
             />
             <Text style={styles.characterCount}>{petBrief.length}/160</Text>
+
+            <TextInput
+              style={styles.input}
+              placeholder="Emergency vet phone number"
+              placeholderTextColor="#999"
+              value={emergencyVetPhone}
+              onChangeText={handleEmergencyPhoneChange}
+              keyboardType="phone-pad"
+              inputMode="tel"
+              returnKeyType="done"
+            />
 
             <Text style={styles.sectionLabel}>Choose a type</Text>
             <View style={styles.typeGrid}>
