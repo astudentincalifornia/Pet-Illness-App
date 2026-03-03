@@ -1,6 +1,6 @@
 import { router } from "expo-router";
 import { useMemo, useState } from "react";
-import { FlatList, Pressable, Text, View } from "react-native";
+import { Alert, FlatList, Pressable, Text, View } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 
 import { AddPetModal } from "@/features/pets/components/AddPetModal";
@@ -86,6 +86,28 @@ export function CreatePetProfileScreen() {
     });
   };
 
+  const openDeletePetModal = (pet: Pet) => {
+    Alert.alert(
+      "Delete pet",
+      `Are you sure you want to delete ${pet.name}?`,
+      [
+        {
+          text: "Cancel",
+          style: "cancel",
+        },
+        {
+          text: "Delete",
+          style: "destructive",
+          onPress: () => {
+            setPets((currentPets) => {
+              return currentPets.filter((currentPet) => currentPet.id !== pet.id);
+            });
+          },
+        },
+      ]
+    );
+  };
+
   return (
     <SafeAreaView style={styles.container}>
       <Text style={styles.heading}>🐾 My Pets</Text>
@@ -108,6 +130,7 @@ export function CreatePetProfileScreen() {
               pet={item}
               typeLabel={getPetTypeById(item.type)?.label}
               onPress={() => openPetDetails(item)}
+              onLongPress={() => openDeletePetModal(item)}
             />
           )}
         />

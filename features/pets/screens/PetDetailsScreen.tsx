@@ -75,8 +75,15 @@ export function PetDetailsScreen() {
   };
 
   return (
-    <SafeAreaView style={styles.container}>
-      <ScrollView contentContainerStyle={styles.content}>
+    <SafeAreaView style={styles.container} edges={["left", "right", "bottom"]}>
+      <ScrollView
+        style={styles.scrollView}
+        contentContainerStyle={styles.content}
+        bounces={false}
+        alwaysBounceVertical={false}
+        overScrollMode="never"
+        contentInsetAdjustmentBehavior="never"
+      >
         <View style={styles.heroCard}>
           <Text style={styles.petEmoji}>{displayEmoji}</Text>
           <Text style={styles.petName}>{displayName}</Text>

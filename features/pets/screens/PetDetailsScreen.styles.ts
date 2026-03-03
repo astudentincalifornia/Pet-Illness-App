@@ -5,16 +5,21 @@ export const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: "#f8f9fb",
   },
+  scrollView: {
+    flex: 1,
+    backgroundColor: "#f8f9fb",
+  },
   content: {
+    flexGrow: 1,
     paddingHorizontal: 20,
-    paddingBottom: 24,
+    paddingTop: 8,
+    paddingBottom: 16,
     gap: 16,
   },
   heroCard: {
     backgroundColor: "#ffffff",
     borderRadius: 16,
     padding: 16,
-    marginTop: 12,
     boxShadow: "0px 2px 8px rgba(0, 0, 0, 0.06)",
   },
   petEmoji: {

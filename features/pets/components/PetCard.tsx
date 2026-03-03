@@ -7,11 +7,12 @@ interface PetCardProps {
   pet: Pet;
   typeLabel?: string;
   onPress?: () => void;
+  onLongPress?: () => void;
 }
 
-export function PetCard({ pet, typeLabel, onPress }: PetCardProps) {
+export function PetCard({ pet, typeLabel, onPress, onLongPress }: PetCardProps) {
   return (
-    <Pressable style={styles.petCard} onPress={onPress}>
+    <Pressable style={styles.petCard} onPress={onPress} onLongPress={onLongPress}>
       <Text style={styles.petCardEmoji}>{pet.emoji}</Text>
       <View style={styles.petCardBody}>
         <Text style={styles.petCardName}>{pet.name}</Text>
