@@ -1,13 +1,22 @@
 import { drizzle } from "drizzle-orm/expo-sqlite";
+import { useMigrations } from "drizzle-orm/expo-sqlite/migrator";
 import { Stack } from "expo-router";
 import * as SQLite from "expo-sqlite";
-// import migrations from '../drizzle/migrations';
+import migrations from "../drizzle/migrations";
 
 const expo = SQLite.openDatabaseSync("db.db");
 const db = drizzle(expo);
 
 export default function RootLayout() {
-  // const {success, error} = useMigrations(db, migrations);
+  const { success, error } = useMigrations(db, migrations);
+
+  if (error) {
+    console.error("Migration error:", error);
+  }
+
+  if (!success) {
+    console.log("Migrations are running...");
+  }
 
   return (
     <Stack>
