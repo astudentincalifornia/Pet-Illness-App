@@ -12,10 +12,12 @@ export default function RootLayout() {
 
   if (error) {
     console.error("Migration error:", error);
+    return null;
   }
 
   if (!success) {
     console.log("Migrations are running...");
+    return null;
   }
 
   return (
