@@ -17,9 +17,15 @@
   "dependencies": {
     "@expo/metro-runtime": "~6.1.2",
     "@expo/vector-icons": "^15.0.3",
+    "@libsql/client": "^0.17.2",
+    "@prisma/adapter-pg": "^7.5.0",
+    "@prisma/client": "^7.5.0",
     "@react-navigation/bottom-tabs": "^7.3.10",
     "@react-navigation/elements": "^2.3.8",
     "@react-navigation/native": "^7.1.6",
+    "better-sqlite3": "^12.8.0",
+    "dotenv": "^17.3.1",
+    "drizzle-orm": "^0.45.1",
     "expo": "^54.0.33",
     "expo-blur": "~15.0.8",
     "expo-constants": "~18.0.13",
@@ -30,11 +36,13 @@
     "expo-linking": "~8.0.11",
     "expo-router": "~6.0.23",
     "expo-splash-screen": "~31.0.13",
+    "expo-sqlite": "~16.0.10",
     "expo-status-bar": "~3.0.9",
     "expo-symbols": "~1.0.8",
     "expo-system-ui": "~6.0.9",
     "expo-updates": "~29.0.16",
     "expo-web-browser": "~15.0.10",
+    "pg": "^8.20.0",
     "react": "19.1.0",
     "react-dom": "19.1.0",
     "react-native": "0.81.5",
@@ -48,9 +56,13 @@
   },
   "devDependencies": {
     "@babel/core": "^7.25.2",
+    "@types/better-sqlite3": "^7.6.13",
+    "@types/pg": "^8.18.0",
     "@types/react": "~19.1.10",
+    "drizzle-kit": "^0.31.10",
     "eslint": "^9.25.0",
     "eslint-config-expo": "~10.0.0",
+    "prisma": "^6.19.2",
     "typescript": "~5.9.2"
   }
 }
